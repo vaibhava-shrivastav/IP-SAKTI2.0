@@ -9,6 +9,7 @@ pandas
 neo4j
 supabase
 chromadb
+sentence-transformers
 langchain-core
 langchain-groq
 langchain-openai
