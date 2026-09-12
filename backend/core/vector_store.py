@@ -15,10 +15,8 @@ class LegalVectorStore:
         os.makedirs(DB_DIR, exist_ok=True)
         self.client = chromadb.PersistentClient(path=DB_DIR)
         
-        # Fast, dense local embedding model
-        self.embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
-            model_name="all-MiniLM-L6-v2"
-        )
+        # Use Chroma's ONNX embedder to avoid loading PyTorch and CUDA at startup.
+        self.embedding_fn = embedding_functions.DefaultEmbeddingFunction()
         
         # 1. Indian Statutory Corpus Collection
         self.india_collection = self.client.get_or_create_collection(
